@@ -3,7 +3,7 @@
  * Plugin Name: Lattice WP All Export Functions
  * Author: John Lomat
  * Author URI: https://johnlomat.vercel.app/
- * Description: A collection of functions for managing courses and their statuses.
+ * Description: A collection of functions specifically designed for the WP All Export Function Editor. These functions are used to manipulate and manage course data and their statuses.
  * Version: 1.0
  */
 
