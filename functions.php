@@ -26,6 +26,68 @@ function wc_order_status( $status ) {
 }
 
 /**
+ * Determines the appropriate entity based on the billing country.
+ *
+ * This function checks the billing country and assigns the corresponding
+ * entity name. If the billing country is the United States ('US'), it
+ * assigns 'Lattice Semiconductor Corporation'. Otherwise, it assigns
+ * 'Lattice SG PTE. LTD.'.
+ *
+ * @param string $country The billing country code.
+ *
+ * @return string The name of the entity based on the billing country.
+ */
+function set_of_books_id( $country ) {
+    if ( 'US' === $country ) {
+        $stripe = 'Lattice Semiconductor Corporation';
+    } else {
+        $stripe = 'Lattice SG PTE. LTD.';
+    }
+
+    return $stripe;
+}
+
+/**
+ * Retrieves the description of a WooCommerce product.
+ *
+ * This function fetches the product description for a given product ID
+ * from the WooCommerce database. If the product is not found, it returns
+ * an empty string.
+ *
+ * @param int $product_id The ID of the WooCommerce product.
+ *
+ * @return string The product description, or an empty string if the product is not found.
+ */
+function get_product_description( $product_id ) {
+    $product = wc_get_product( $product_id );
+    if ( $product ) {
+        return $product->get_description();
+    }
+    return '';
+}
+
+/**
+ * Calculates the net amount by subtracting the Stripe fee from the order total.
+ *
+ * This function retrieves the WooCommerce order total and the Stripe fee for a given order ID,
+ * then calculates the net amount by subtracting the Stripe fee from the order total.
+ *
+ * @param int $order_id The ID of the WooCommerce order.
+ *
+ * @return float The net amount after deducting the Stripe fee from the order total.
+ */
+function get_net_amount( $order_total, $stripe_fee ) {
+
+    if ( '' === $stripe_fee ) {
+        $stripe_fee = 0;
+    }
+
+    $net_amount = $order_total - $stripe_fee;
+
+    return $net_amount;
+}
+
+/**
  * Returns a human-readable course status.
  *
  * @param string $status The course status.
