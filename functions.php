@@ -122,10 +122,23 @@ function unserialize_data( $data ) {
 /**
  * Converts a timestamp to a human-readable date format.
  *
- * @param int $timestamp The timestamp to convert.
- * @return string The formatted date string.
+ * @param mixed $timestamp The timestamp to convert.
+ * @return string The formatted date string or empty string if invalid.
  */
 function convert_timestamp_to_human_readable( $timestamp ) {
+    // Handle invalid or empty input
+    if ( empty( $timestamp ) || !is_numeric( $timestamp ) ) {
+        return '';
+    }
+    
+    // Ensure timestamp is an integer
+    $timestamp = (int) $timestamp;
+    
+    // Check if timestamp is in valid range
+    if ( $timestamp < 0 || $timestamp > PHP_INT_MAX ) {
+        return '';
+    }
+    
     return date( 'Y-m-d H:i:s', $timestamp );
 }
 
