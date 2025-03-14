@@ -279,4 +279,28 @@ function get_lesson_name( $lesson_id ) {
 
     return ( $lesson && ! is_wp_error( $lesson ) ) ? $lesson->post_title : 'Unknown Lesson';
 }
+
+/**
+ * Retrieves the download count for a specified download ID.
+ *
+ * @param int $id The download ID to get the download count for.
+ * @return int The download count value or 0 if not found.
+ */
+function get_download_count( $id ) {
+    global $wpdb;
+    
+    $download_count = $wpdb->get_var(
+        $wpdb->prepare(
+            "SELECT download_count FROM {$wpdb->prefix}dlm_downloads WHERE download_id = %d",
+            $id
+        )
+    );
+    
+    // Return 0 if the download count is not set or invalid
+    if ( empty( $download_count ) || !is_numeric( $download_count ) ) {
+        return 0;
+    }
+    
+    return (int) $download_count;
+}
 ?>
