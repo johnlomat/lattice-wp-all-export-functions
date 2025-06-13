@@ -18,8 +18,24 @@ function wc_order_status( $status ) {
         return 'Completed';
     }
 
+    if ( 'wc-failed' === $status ) {
+        return 'Failed';
+    }
+
     if ( 'wc-processing' === $status ) {
         return 'Processing';
+    }
+
+    if ( 'wc-on-hold' === $status ) {
+        return 'On Hold';
+    }
+
+    if ( 'wc-pending' === $status ) {
+        return 'Pending';
+    }
+
+    if ( 'wc-cancelled' === $status ) {
+        return 'Cancelled';
     }
 
     return $status;
