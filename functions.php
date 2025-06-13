@@ -38,6 +38,10 @@ function wc_order_status( $status ) {
         return 'Cancelled';
     }
 
+    if ( 'wc-refunded' === $status ) {
+        return 'Refunded';
+    }
+
     return $status;
 }
 
